@@ -6,6 +6,8 @@ This file contains all API configurations and settings used across the pipeline.
 All scripts import from this file to ensure consistency.
 """
 
+import os
+
 # ==================== Azure OpenAI Configuration ====================
 # Azure OpenAI Endpoint and Keys
 AZURE_OPENAI_ENDPOINT = os.environ.get("AZURE_OPENAI_ENDPOINT", "")
