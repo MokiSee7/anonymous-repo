@@ -1,0 +1,135 @@
+# Server Environment Configuration
+# 服务器环境配置
+
+environment:
+  name: server
+  description: "GPU server environment"
+
+# 路径配置
+paths:
+  # 项目根目录（代码所在位置）
+  project_root: /path/to/mms-benchmark
+
+  # ========== 新的数据根目录 ==========
+  # 服务器上所有数据集的根目录
+  # 结构: data_root/{dataset_name}/videos/  - 视频文件
+  #        data_root/{dataset_name}/h5/     - H5标注文件
+  #        data_root/{dataset_name}/frames/ - 抽取的帧
+  #        data_root/{dataset_name}/frame_descriptions/ - Excel中间文件
+  data_root: /data/MMS_Benchmark/data
+
+  # 处理后的JSON文件目录（集中存放所有数据集的输出）
+  processed_dir: /data/MMS_Benchmark/data/processed
+
+  # 统计文件目录
+  statistics_dir: /data/MMS_Benchmark/data/statistics
+
+  # checkpoint文件目录
+  checkpoints_dir: /data/MMS_Benchmark/data/checkpoints
+
+  # 临时文件目录
+  temp_dir: /data/MMS_Benchmark/temp
+
+  # 日志目录
+  log_dir: /data/MMS_Benchmark/logs
+
+# ========== 各数据集配置（可选覆盖，未指定则从 data_root 自动推导） ==========
+
+# VideoXum数据集配置
+videoxum:
+  videos_dir: /data/MMS_Benchmark/data/videoxum/videos
+  frames_dir: /data/MMS_Benchmark/data/videoxum/frames
+  h5_file: /data/MMS_Benchmark/data/videoxum/h5/videoxum.h5
+  frame_descriptions_dir: /data/MMS_Benchmark/data/videoxum/frame_descriptions
+  shot_descriptions_dir: /data/MMS_Benchmark/data/videoxum/shot_descriptions
+  documents_dir: /data/MMS_Benchmark/data/videoxum/documents
+  data_root: /data/MMS_Benchmark/data
+
+# SumMe数据集配置
+summe:
+  videos_dir: /data/MMS_Benchmark/data/summe/videos
+  frames_dir: /data/MMS_Benchmark/data/summe/frames
+  h5_file: /data/MMS_Benchmark/data/summe/h5/summe.h5
+  frame_descriptions_dir: /data/MMS_Benchmark/data/summe/frame_descriptions
+  shot_descriptions_dir: /data/MMS_Benchmark/data/summe/shot_descriptions
+  documents_dir: /data/MMS_Benchmark/data/summe/documents
+  data_root: /data/MMS_Benchmark/data
+
+# TVSum数据集配置
+tvsum:
+  videos_dir: /data/MMS_Benchmark/data/tvsum/videos
+  frames_dir: /data/MMS_Benchmark/data/tvsum/frames
+  h5_file: /data/MMS_Benchmark/data/tvsum/h5/tvsum.h5
+  frame_descriptions_dir: /data/MMS_Benchmark/data/tvsum/frame_descriptions
+  shot_descriptions_dir: /data/MMS_Benchmark/data/tvsum/shot_descriptions
+  documents_dir: /data/MMS_Benchmark/data/tvsum/documents
+  data_root: /data/MMS_Benchmark/data
+
+# OVP数据集配置
+ovp:
+  videos_dir: /data/MMS_Benchmark/data/ovp/videos
+  frames_dir: /data/MMS_Benchmark/data/ovp/frames
+  h5_file: /data/MMS_Benchmark/data/ovp/h5/ovp.h5
+  frame_descriptions_dir: /data/MMS_Benchmark/data/ovp/frame_descriptions
+  shot_descriptions_dir: /data/MMS_Benchmark/data/ovp/shot_descriptions
+  documents_dir: /data/MMS_Benchmark/data/ovp/documents
+  data_root: /data/MMS_Benchmark/data
+
+# YouTube数据集配置
+youtube:
+  videos_dir: /data/MMS_Benchmark/data/youtube/videos
+  frames_dir: /data/MMS_Benchmark/data/youtube/frames
+  h5_file: /data/MMS_Benchmark/data/youtube/h5/youtube.h5
+  frame_descriptions_dir: /data/MMS_Benchmark/data/youtube/frame_descriptions
+  shot_descriptions_dir: /data/MMS_Benchmark/data/youtube/shot_descriptions
+  documents_dir: /data/MMS_Benchmark/data/youtube/documents
+  data_root: /data/MMS_Benchmark/data
+
+# MrHiSum数据集配置
+mrhisum:
+  videos_dir: /data/MMS_Benchmark/data/mrhisum/videos
+  frames_dir: /data/MMS_Benchmark/data/mrhisum/frames
+  h5_file: /data/MMS_Benchmark/data/mrhisum/h5/mrhisum.h5
+  frame_descriptions_dir: /data/MMS_Benchmark/data/mrhisum/frame_descriptions
+  shot_descriptions_dir: /data/MMS_Benchmark/data/mrhisum/shot_descriptions
+
+# 处理参数配置
+processing:
+  # 默认worker数量（0表示自动检测CPU核心数）
+  default_workers: 16  # 服务器通常有更多核心
+
+  # 是否使用ffmpeg
+  use_ffmpeg: true
+
+  # 是否在抽帧后删除视频（服务器上通常需要节省空间）
+  delete_after_extraction: true
+
+  # 监控模式检查间隔（秒）
+  watch_interval: 30  # 服务器上可以更频繁检查
+
+  # KTS分割比例
+  kts_ratio: 10
+
+  # GT摘要选择比例
+  gt_portion: 0.15
+
+# 特征提取配置
+features:
+  # 特征提取模型
+  model: googlenet  # googlenet, resnet, clip
+
+  # 批处理大小（服务器GPU内存更大）
+  batch_size: 128
+
+  # 特征维度
+  feature_dim: 1024
+
+  # GPU设备
+  gpu_device: 0
+
+# 日志配置
+logging:
+  level: INFO
+  format: "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+  to_file: true
+  to_console: true
